@@ -17,15 +17,15 @@ public class StrategyController {
                 return NathanStrategy.getBiddingAmount(bidder);
             case USER:
                 return UserStrategy.getBiddingAmount(bidder);
-            case DUMMY_RAISES:
+            case FAKE_ALWAYS_RAISES:
                 return RisingStrategy.getBiddingAmount(bidder);
-            case DUMMY_COPYCAT:
+            case FAKE_COPYCAT:
                 return CopycatStrategy.getBiddingAmount(bidder);
-            case DUMMY_SAFE:
+            case FAKE_SAFE:
                 return SafeStrategy.getBiddingAmount(bidder);
-            case DUMMY_FAIR:
+            case FAKE_FAIR:
                 return FairStrategy.getBiddingAmount(bidder);
-            case DUMMY_WINNER_INCREMENT:
+            case FAKE_WINNER_INCREMENT:
                 return WinnerIncrementStrategy.getBiddingAmount(bidder);
             default:
                 throw new IllegalArgumentException("No such strategy exists.");

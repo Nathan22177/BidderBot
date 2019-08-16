@@ -10,7 +10,7 @@ public class CalcUtil {
      * */
     public static boolean firstSmallerThanAllComparables(int value, List<Integer> comparables) {
         for (int comparable : comparables) {
-            if (value > comparable) {
+            if (value >= comparable) {
                 return false;
             }
         }

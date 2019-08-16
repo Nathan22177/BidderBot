@@ -61,7 +61,7 @@ public class BidderImpl implements Bidder {
     /*
     * Closing default constructor to ensure no one will call it.
     * */
-    private BidderImpl(){}
+    private BidderImpl() {}
 
     private void addToBiddingHistory(int own, int other) {
         if (this.biddingHistory == null) {

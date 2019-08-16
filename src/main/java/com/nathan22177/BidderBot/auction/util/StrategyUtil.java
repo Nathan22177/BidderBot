@@ -1,8 +1,11 @@
 package com.nathan22177.BidderBot.auction.util;
 
 import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
+import org.springframework.util.Assert;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,23 +17,39 @@ import java.util.stream.Stream;
 public class StrategyUtil {
 
     /***
-     * Retrieves the most-close to center element
-     * of sorted flatMap of all the bids.
+     * Retrieves the median all the bids.
      * @param bidder instance of bidder
      * @return median
      * */
     public static int allBidsMedian(BidderImpl bidder) {
+        return allBidsMedian(bidder.getBiddingHistory());
+    }
 
-        if (bidder.getBiddingHistory() == null) {
+    /***
+     * Retrieves the median all the bids.
+     * @param history of all bids
+     * @return median
+     * */
+    public static int allBidsMedian(List<Pair<Integer,Integer>> history) {
+
+        if (history == null) {
             return 0;
         }
 
-        double[] bids = bidder.getBiddingHistory().stream()
+        double[] bids = history.stream()
                 .flatMap(pair -> Stream.of(pair.getKey(), pair.getValue()))
                 .mapToDouble(val -> val)
                 .sorted()
                 .toArray();
-        return (int) bids[bids.length / 2];
+        if (bids.length == 1) {
+            return (int) bids[0];
+        }
+
+        if (bids.length == 2) {
+        return (int) (bids[0] + bids[1]) / 2;
+        }
+            return (int) (bids[bids.length / 2] + bids[(bids.length / 2) + 1]) / 2;
+
     }
 
     /***
@@ -55,7 +74,7 @@ public class StrategyUtil {
 
     /***
      * Retrieves last {@param n} bids of a {@param bidder}.
-     * @return LIFO list of bids
+     * @return FIFO list of bids
      * */
     public static List<Integer> getLastNBids(int n, BidderImpl bidder) {
         return bidder.getBiddingHistory()
@@ -67,7 +86,7 @@ public class StrategyUtil {
 
     /***
      * Retrieves last {@param n} bids of a {@param bidder's} opponent.
-     * @return LIFO list of bids
+     * @return FIFO list of bids
      * */
     public static List<Integer> getLastNOpponentBids(int n, BidderImpl bidder) {
         return bidder.getBiddingHistory()
@@ -78,14 +97,14 @@ public class StrategyUtil {
     }
 
     /***
-     * Determines if {@param bidder} raised over
-     * mean price for last {@param n} bids.
+     * Determines if {@param bidder} bidded over
+     * mean price of two QUs for last {@param n} bids.
      * */
-    public static boolean bidderRaisesTooFast(BidderImpl bidder, int n) {
-        if (bidder.getBiddingHistory().size() < n) {
+    public static boolean bidsOverMeanPriceForNRounds(BidderImpl bidder, int n) {
+        if (bidder.getBiddingHistory().size() < n || n <= 1) {
             return false;
         }
-        return CalcUtil.firstSmallerThanAllComparables(getMeanPriceForOneUnit(bidder),
+        return CalcUtil.firstSmallerThanAllComparables(getMeanPriceForOneUnit(bidder) * 2,
                 getLastNBids(n, bidder));
     }
 
@@ -93,7 +112,7 @@ public class StrategyUtil {
      * Determines if {@param bidder} has more money
      * than their opponent.
      * */
-    public static boolean bidderHasUpperHandOverItsOpponent(BidderImpl bidder) {
+    public static boolean bidderHasAdvantageOverItsOpponent(BidderImpl bidder) {
         if (bidder.getBiddingHistory() == null) {
             return false;
         }
@@ -107,7 +126,7 @@ public class StrategyUtil {
      * */
     public static int getPreviousWinnerBid(BidderImpl bidder) {
         return bidder.getBiddingHistory() != null
-                ? Stream.of(bidder.getBiddingHistory().peek().getKey(), bidder.getBiddingHistory().peek().getValue())
+                ? Stream.of(bidder.getBiddingHistory().peekLast().getKey(), bidder.getBiddingHistory().peekLast().getValue())
                 .mapToInt(value -> value)
                 .max()
                 .orElse(0)
@@ -139,6 +158,7 @@ public class StrategyUtil {
         List<Integer> bids = bidder.getBiddingHistory()
                 .stream()
                 .map(Pair::getValue)
+                .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
 
         return IntStream.range(1, bids.size())
@@ -150,7 +170,7 @@ public class StrategyUtil {
      * @return bid
      * */
     public static int getLastOpponentBid(BidderImpl bidder) {
-        return bidder.getBiddingHistory().peek().getValue();
+        return bidder.getBiddingHistory().peekLast().getValue();
     }
 
     /***
@@ -158,10 +178,18 @@ public class StrategyUtil {
      * the same amount for the last {@param n} rounds.
      * */
     public static boolean opponentBidsTheSameLastNRounds(int n, BidderImpl bidder) {
-        if (bidder.getBiddingHistory() == null || bidder.getBiddingHistory().size() < n) {
+        if (bidder.getBiddingHistory() == null) {
             return false;
         }
-        int lastBid = bidder.getBiddingHistory().peek().getValue();
-        return getLastNOpponentBids(n, bidder).stream().allMatch(bid -> bid == lastBid);
+
+        Assert.isTrue(n > 1, "Can't check if he bids the same if we only check 1 or less round");
+        Assert.isTrue(bidder.getBiddingHistory().size() >= n, "Can't check for not existing rounds");
+
+        if (bidder.getBiddingHistory() == null) {
+            return false;
+        }
+
+        int lastBid = bidder.getBiddingHistory().peekLast().getValue();
+        return getLastNOpponentBids(n, bidder).stream().sorted(Collections.reverseOrder()).skip(1).allMatch(bid -> bid == lastBid);
     }
 }

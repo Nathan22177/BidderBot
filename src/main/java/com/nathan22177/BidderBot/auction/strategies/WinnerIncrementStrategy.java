@@ -8,7 +8,7 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
  * */
 public class WinnerIncrementStrategy {
     public static int getBiddingAmount(BidderImpl bidder) {
-        if (StrategyUtil.bidderHasUpperHandOverItsOpponent(bidder)) {
+        if (StrategyUtil.bidderHasAdvantageOverItsOpponent(bidder)) {
             return StrategyUtil.getPreviousWinnerBid(bidder) + 1;
         } else {
             return 0;

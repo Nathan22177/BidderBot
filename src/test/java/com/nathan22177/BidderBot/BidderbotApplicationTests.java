@@ -21,30 +21,33 @@ public class BidderbotApplicationTests {
     private int winThreshold = 10; // out of 12
 
     /*
-     * Test for debugging strategies.
+     * Test for debugging and tweaking strategies.
      * */
     @Test
     public void oneGameVsNathan() {
-        int quantity = 40;
+        int quantity = 100;
         int cash = 10000;
-        BiddingStrategy opponentStrategy = BiddingStrategy.DUMMY_FAIR;
+        BiddingStrategy opponentStrategy = BiddingStrategy.FAKE_FAIR;
         BidderImpl nathan = new BidderImpl(quantity, cash, BiddingStrategy.NATHAN);
         BidderImpl opponent = new BidderImpl(quantity, cash, opponentStrategy);
+
+
         for (int i = 0; i < quantity / 2; i++) {
             int nathansBid = nathan.placeBid();
             int opponentBid = opponent.placeBid();
             nathan.bids(nathansBid, opponentBid);
             opponent.bids(opponentBid, nathansBid);
-            log.debug("Nathan bids: " + nathansBid + "; Opponent bids: " + opponentBid + ";\n");
+            log.info("Nathan bids: " + nathansBid + "; Opponent bids: " + opponentBid + ";\n");
             if (nathansBid >= opponentBid) {
-                log.debug("Draw or Win.\n");
+                log.info("Draw or Win.\n");
             } else {
-                log.debug("Defeat!\n");
+                log.info("Defeat!\n");
             }
         }
-        log.debug("Init QU: " + nathan.getInitialQuantity() + "; Init balance: " + nathan.getInitialBalance());
-        log.debug("Nathan QU: " + nathan.getAcquiredAmount() + "; Opponent QU: " + opponent.getAcquiredAmount());
+        log.info("Init QU: " + nathan.getInitialQuantity() + "; Init balance: " + nathan.getInitialBalance());
+        log.info("Nathan QU: " + nathan.getAcquiredAmount() + "; Opponent QU: " + opponent.getAcquiredAmount());
         Assert.assertTrue(nathan.getAcquiredAmount() >= opponent.getAcquiredAmount());
+
     }
 
     @Test
@@ -53,7 +56,7 @@ public class BidderbotApplicationTests {
         for (int cash : cashPoll) {
             for (int quantity : quantityPoll) {
                 BidderImpl nathan = new BidderImpl(quantity, cash, BiddingStrategy.NATHAN);
-                BidderImpl copycat = new BidderImpl(quantity, cash, BiddingStrategy.DUMMY_COPYCAT);
+                BidderImpl copycat = new BidderImpl(quantity, cash, BiddingStrategy.FAKE_COPYCAT);
                 for (int i = 0; i < quantity / 2; i++) {
                     int nathansBid = nathan.placeBid();
                     int opponentBid = copycat.placeBid();
@@ -74,7 +77,7 @@ public class BidderbotApplicationTests {
         for (int cash : cashPoll) {
             for (int quantity : quantityPoll) {
                 BidderImpl nathan = new BidderImpl(quantity, cash, BiddingStrategy.NATHAN);
-                BidderImpl raiser = new BidderImpl(quantity, cash, BiddingStrategy.DUMMY_RAISES);
+                BidderImpl raiser = new BidderImpl(quantity, cash, BiddingStrategy.FAKE_ALWAYS_RAISES);
                 for (int i = 0; i < quantity / 2; i++) {
                     int nathansBid = nathan.placeBid();
                     int opponentBid = raiser.placeBid();
@@ -96,7 +99,7 @@ public class BidderbotApplicationTests {
         for (int cash : cashPoll) {
             for (int quantity : quantityPoll) {
                 BidderImpl nathan = new BidderImpl(quantity, cash, BiddingStrategy.NATHAN);
-                BidderImpl fairBidder = new BidderImpl(quantity, cash, BiddingStrategy.DUMMY_FAIR);
+                BidderImpl fairBidder = new BidderImpl(quantity, cash, BiddingStrategy.FAKE_FAIR);
                 for (int i = 0; i < quantity / 2; i++) {
                     int nathansBid = nathan.placeBid();
                     int opponentBid = fairBidder.placeBid();
@@ -117,7 +120,7 @@ public class BidderbotApplicationTests {
         for (int cash : cashPoll) {
             for (int quantity : quantityPoll) {
                 BidderImpl nathan = new BidderImpl(quantity, cash, BiddingStrategy.NATHAN);
-                BidderImpl safeBidder = new BidderImpl(quantity, cash, BiddingStrategy.DUMMY_SAFE);
+                BidderImpl safeBidder = new BidderImpl(quantity, cash, BiddingStrategy.FAKE_SAFE);
                 for (int i = 0; i < quantity / 2; i++) {
                     int nathansBid = nathan.placeBid();
                     int opponentBid = safeBidder.placeBid();
@@ -138,7 +141,7 @@ public class BidderbotApplicationTests {
         for (int cash : cashPoll) {
             for (int quantity : quantityPoll) {
                 BidderImpl nathan = new BidderImpl(quantity, cash, BiddingStrategy.NATHAN);
-                BidderImpl winnerIncrementBidder = new BidderImpl(quantity, cash, BiddingStrategy.DUMMY_SAFE);
+                BidderImpl winnerIncrementBidder = new BidderImpl(quantity, cash, BiddingStrategy.FAKE_SAFE);
                 for (int i = 0; i < quantity / 2; i++) {
                     int nathansBid = nathan.placeBid();
                     int opponentBid = winnerIncrementBidder.placeBid();

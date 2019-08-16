@@ -27,7 +27,9 @@ public class NathanStrategy {
         /*
          * If opponent consistently bids the same amount we can easily outbid them.
          * */
-        if (StrategyUtil.opponentBidsTheSameLastNRounds(2, bidder)) {
+        if (bidder.getBiddingHistory() != null
+                && bidder.getBiddingHistory().size() > 2
+                && StrategyUtil.opponentBidsTheSameLastNRounds(2, bidder)) {
             defaultBid = StrategyUtil.getLastOpponentBid(bidder) + 1;
         }
 
@@ -51,7 +53,7 @@ public class NathanStrategy {
           by outbidding the opponent
           */
         if (bidder.getAcquiredAmount() + 2 >= bidder.getInitialQuantity() / 2) {
-            if (StrategyUtil.bidderHasUpperHandOverItsOpponent(bidder)) {
+            if (StrategyUtil.bidderHasAdvantageOverItsOpponent(bidder)) {
                 return StrategyUtil.getOpponentBalance(bidder) + 1;
             } else if (bidder.getInitialQuantity() == 2) {
                 return bidder.getBalance();
@@ -70,7 +72,7 @@ public class NathanStrategy {
          */
         if (!StrategyUtil.opponentAlwaysRaises(bidder)
                 && (bidder.getBiddingHistory() == null
-                || StrategyUtil.bidderRaisesTooFast(bidder, 4))) {
+                || StrategyUtil.bidsOverMeanPriceForNRounds(bidder, 4))) {
 
             /*
               Unless it is the only round or last round, then we go all-in.

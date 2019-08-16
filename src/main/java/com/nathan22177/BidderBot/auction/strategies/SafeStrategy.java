@@ -8,7 +8,7 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
  * */
 public class SafeStrategy {
     public static int getBiddingAmount(BidderImpl bidder) {
-        if (StrategyUtil.bidderHasUpperHandOverItsOpponent(bidder)) {
+        if (StrategyUtil.bidderHasAdvantageOverItsOpponent(bidder)) {
             return StrategyUtil.allBidsMedian(bidder) + 1;
         }
 

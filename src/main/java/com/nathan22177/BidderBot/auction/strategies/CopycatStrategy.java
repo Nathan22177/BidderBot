@@ -9,7 +9,7 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
 public class CopycatStrategy {
     public static int getBiddingAmount(BidderImpl bidder) {
         int defaultBid = StrategyUtil.getPreviousWinnerBid(bidder) + 1;
-        if (StrategyUtil.bidderHasUpperHandOverItsOpponent(bidder)) {
+        if (StrategyUtil.bidderHasAdvantageOverItsOpponent(bidder)) {
             return defaultBid > bidder.getBalance()
                     ? bidder.getBalance()
                     : defaultBid;
