@@ -49,6 +49,13 @@ public class BidderImpl implements Bidder {
      * */
     private LinkedList<Pair<Integer, Integer>> biddingHistory;
 
+    public BidderImpl (int quantity, int cash) {
+        Assert.isTrue(quantity % 2 == 0 && quantity > 0, "Quantity must be a positive and even number.");
+        Assert.isTrue(cash > 0, "Cash must be positive number.");
+        this.init(quantity, cash);
+        this.biddingStrategy = BiddingStrategy.NATHAN;
+    }
+
 
     public BidderImpl (int quantity, int cash, BiddingStrategy strategy) {
         Assert.isTrue(quantity % 2 == 0 && quantity > 0, "Quantity must be a positive and even number.");
@@ -62,30 +69,6 @@ public class BidderImpl implements Bidder {
     * Closing default constructor to ensure no one will call it.
     * */
     private BidderImpl() {}
-
-    private void addToBiddingHistory(int own, int other) {
-        if (this.biddingHistory == null) {
-            initializeBiddingHistory(own, other);
-        } else {
-            this.biddingHistory.add(newBiddingEntry(own, other));
-        }
-
-        if (other < own) {
-            this.acquiredAmount += 2;
-        }
-
-        if (own == other) {
-            this.acquiredAmount++;
-        }
-    }
-
-    private Pair<Integer, Integer> newBiddingEntry(int own, int other) {
-        return new Pair<>(own, other);
-    }
-
-    private void initializeBiddingHistory(int own, int other) {
-        this.biddingHistory = new LinkedList<>(Collections.singletonList(new Pair<>(own, other)));
-    }
 
     @Override
     public void init(int quantity, int cash) {
@@ -105,5 +88,21 @@ public class BidderImpl implements Bidder {
     @Override
     public void bids(int own, int other) {
         addToBiddingHistory(own, other);
+    }
+
+    private void addToBiddingHistory(int own, int other) {
+        if (this.biddingHistory == null) {
+            this.biddingHistory = new LinkedList<>(Collections.singletonList(new Pair<>(own, other)));
+        } else {
+            this.biddingHistory.add(new Pair<>(own, other));
+        }
+
+        if (other < own) {
+            this.acquiredAmount += 2;
+        } else if (own == other) {
+            this.acquiredAmount++;
+        } else {
+            // do nothing because we have lost
+        }
     }
 }
