@@ -40,9 +40,6 @@ public class StrategyUtillUnitTests {
             opponent.bids(opponentBid, bidderBid);
         }
         /*
-         * At the end of this game "opponent" would be victorious.
-         *
-         *
          * At the end of the game:
          *
          * bidder's balance: 803
