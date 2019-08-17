@@ -15,7 +15,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class BidderbotApplicationTests {
+public class BidderBotApplicationTests {
     private List<Integer> cashPoll = Arrays.asList(1000, 10000, 100000);
     private List<Integer> quantityPoll = Arrays.asList(20, 40, 80, 100);
     private int winThreshold = 10; // out of 12
