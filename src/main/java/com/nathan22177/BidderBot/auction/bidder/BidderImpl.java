@@ -49,6 +49,9 @@ public class BidderImpl implements Bidder {
      * */
     private LinkedList<Pair<Integer, Integer>> biddingHistory;
 
+    /***
+    * Constructor without implicitly specified strategy.
+    * */
     public BidderImpl (int quantity, int cash) {
         Assert.isTrue(quantity % 2 == 0 && quantity > 0, "Quantity must be a positive and even number.");
         Assert.isTrue(cash > 0, "Cash must be positive number.");
@@ -101,7 +104,7 @@ public class BidderImpl implements Bidder {
             this.acquiredAmount += 2;
         } else if (own == other) {
             this.acquiredAmount++;
-        } else {
+        } else  if (own < other){
             // do nothing because we have lost
         }
     }
