@@ -195,7 +195,6 @@ public class StrategyUtillUnitTests {
     public void bidderHasUpperHandOverItsOpponentTest() {
         Assert.assertTrue(StrategyUtil.bidderHasAdvantageOverItsOpponent(bidder));
         Assert.assertFalse(StrategyUtil.bidderHasAdvantageOverItsOpponent(opponent));
-
     }
 
 
@@ -203,7 +202,6 @@ public class StrategyUtillUnitTests {
     public void getPreviousWinnerBidTest() {
         Assert.assertEquals(806, StrategyUtil.getPreviousWinnerBid(bidder));
         Assert.assertEquals(806, StrategyUtil.getPreviousWinnerBid(opponent));
-
     }
 
     @Test
@@ -241,6 +239,5 @@ public class StrategyUtillUnitTests {
         Assert.assertFalse(StrategyUtil.opponentBidsTheSameLastNRounds(4, opponent));
         Assert.assertFalse(StrategyUtil.opponentBidsTheSameLastNRounds(8, opponent));
         Assert.assertFalse(StrategyUtil.opponentBidsTheSameLastNRounds(16, opponent));
-
     }
 }
