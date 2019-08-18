@@ -19,7 +19,7 @@ My take at the technical task for Optimax GmbH.
 * [WinnerIncrementStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/WinnerIncrementStrategy.java) - waits for advantage then bids last winning bid plus one;
 
 ## Tests
-* [BidderBotIntegrationTests](src/test/java/com/nathan22177/BidderBot/CopycatStrategy.java) - integration tests ensuring that we win a considerable amount of games against other algorithms.
+* [BidderBotIntegrationTests](src/test/java/com/nathan22177/BidderBot/BidderBotIntegrationTests.java) - integration tests ensuring that we win a considerable amount of games against other algorithms.
 * [StrategyUtillUnitTests](src/test/java/com/nathan22177/BidderBot/StrategyUtillUnitTests.java) - unit coverage for StrategyUtil.java to ensure that methods do not deviate from expectable behavior since all the strategies rely on them.
 
 ## Conditions of the problem
