@@ -2,7 +2,6 @@ package com.nathan22177.BidderBot;
 
 import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
 import com.nathan22177.BidderBot.auction.enums.BiddingStrategy;
-import com.nathan22177.BidderBot.auction.strategies.WinnerIncrementStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,9 +16,9 @@ import java.util.List;
 @SpringBootTest
 @Slf4j
 public class BidderBotApplicationTests {
-    private List<Integer> cashPoll = Arrays.asList(1000, 10000, 100000);
-    private List<Integer> quantityPoll = Arrays.asList(20, 40, 80, 100);
-    private int winThreshold = 10; // out of 12
+    private List<Integer> cashPoll = Arrays.asList(1000, 5000, 10_000, 50_000, 100_000, 500_000, 1000_000, 10_000_000);
+    private List<Integer> quantityPoll = Arrays.asList(2, 4, 8, 16, 20, 30, 40, 50, 80, 100, 200, 400, 800, 1000);
+    private int winThreshold = 101; // out of 112 ≈ 90.2%
 
     @Test
     public void NathanVsCopycat() {
