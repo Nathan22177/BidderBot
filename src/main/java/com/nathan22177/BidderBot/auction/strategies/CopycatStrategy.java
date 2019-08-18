@@ -4,7 +4,7 @@ import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
 import com.nathan22177.BidderBot.auction.util.StrategyUtil;
 
 /***
- * Bids it's opponent's last bid plus one if has advantage. else skips round.
+ * Bids it's opponent's last bid plus one if has advantage, else skips round.
  * */
 public class CopycatStrategy {
     public static int getBiddingAmount(BidderImpl bidder) {

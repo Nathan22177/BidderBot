@@ -1,7 +1,6 @@
 package com.nathan22177.BidderBot.auction.util;
 
 import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
 import org.springframework.util.Assert;
 

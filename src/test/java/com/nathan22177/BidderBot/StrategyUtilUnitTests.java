@@ -19,7 +19,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class StrategyUtillUnitTests {
+public class StrategyUtilUnitTests {
 
     private BidderImpl bidder;
     private BidderImpl opponent;
