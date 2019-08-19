@@ -5,6 +5,7 @@ My take at the technical task for Optimax GmbH.
 * [BidderImpl](src/main/java/com/nathan22177/BidderBot/auction/bidder/BidderImpl.java) - class to instantiate and use for competition.
 * [BiddingStrategy](src/main/java/com/nathan22177/BidderBot/auction/enums/BiddingStrategy.java) - enum-class that defines the strategy for BidderImpl.java, and a brief description of other strategies used for testing.
 * [NathanStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/NathanStrategy.java) - a strategy I came up with.
+* [StrategyController](src/main/java/com/nathan22177/BidderBot/auction/StrategyController.java) - class that resolves where bidder calculates its bidding amount.
 
 ## Util classes:
 * [StrategyUtil](src/main/java/com/nathan22177/BidderBot/auction/util/StrategyUtil.java) - class that provides static methods to formulate and implement strategies.
