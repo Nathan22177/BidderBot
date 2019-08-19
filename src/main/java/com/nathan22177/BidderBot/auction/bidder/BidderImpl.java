@@ -84,6 +84,9 @@ public class BidderImpl implements Bidder {
     @Override
     public int placeBid() {
         int bid = StrategyController.getBiddingAmountForStrategy(this);
+        Assert.isTrue(bid >= 0, "Bid should be positive number");
+        Assert.isTrue(bid >= 0, "Bid should be positive number");
+
         this.balance -= bid;
         return bid;
     }

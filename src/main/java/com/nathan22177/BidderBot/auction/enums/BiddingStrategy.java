@@ -38,6 +38,16 @@ public enum BiddingStrategy {
      * Emulates bidder who skips first bid and then
      * bids last winning bid plus one when has advantage.
      * */
-    FAKE_WINNER_INCREMENT
+    FAKE_WINNER_INCREMENT,
+
+    /**
+    * Emulates lehaSVV2009s AwesomeBidder strategy.
+    * */
+    FAKE_LEHASVV2009,
+
+    /**
+    * Emulates PyramidPlayers AdvancedBidder strategy.
+    * */
+    FAKE_PYRAMID_PLAYER
 
 }

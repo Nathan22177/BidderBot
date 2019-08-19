@@ -4,8 +4,8 @@ import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
 import com.nathan22177.BidderBot.auction.util.StrategyUtil;
 
 /***
-* My own strategy.
-* */
+ * My own strategy.
+ * */
 public class NathanStrategy {
 
     public static int getBiddingAmount(BidderImpl bidder) {
@@ -25,8 +25,8 @@ public class NathanStrategy {
         int price = bidder.getInitialBalance() / bidder.getInitialQuantity();
 
         /*
-         * If opponent consistently bids the same amount we can easily outbid them.
-         * */
+          If opponent consistently bids the same amount we can easily outbid them.
+          */
         if (bidder.getBiddingHistory() != null
                 && bidder.getBiddingHistory().size() > 2
                 && StrategyUtil.opponentBidsTheSameLastNRounds(2, bidder)) {
@@ -91,7 +91,7 @@ public class NathanStrategy {
           bid median plus initialQuantity
           or just bid random int within our budget.
           */
-        if (defaultBid > bidder.getBalance()) {
+        if (defaultBid > bidder.getBalance() || defaultBid < 0) {
             return medianBid > bidder.getBalance()
                     ? bidder.getRandom().nextInt(bidder.getBalance())
                     : medianBid;

@@ -1,6 +1,8 @@
 package com.nathan22177.BidderBot.auction;
 
 import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
+import com.nathan22177.BidderBot.auction.strategies.PyramidPlayerStrategy;
+import com.nathan22177.BidderBot.auction.strategies.LehaSVV2009Strategy;
 import com.nathan22177.BidderBot.auction.strategies.CopycatStrategy;
 import com.nathan22177.BidderBot.auction.strategies.FairStrategy;
 import com.nathan22177.BidderBot.auction.strategies.NathanStrategy;
@@ -27,6 +29,10 @@ public class StrategyController {
                 return FairStrategy.getBiddingAmount(bidder);
             case FAKE_WINNER_INCREMENT:
                 return WinnerIncrementStrategy.getBiddingAmount(bidder);
+            case FAKE_LEHASVV2009:
+                return LehaSVV2009Strategy.getBiddingAmount(bidder);
+            case FAKE_PYRAMID_PLAYER:
+                return PyramidPlayerStrategy.getBiddingAmount(bidder);
             default:
                 throw new IllegalArgumentException("No such strategy exists.");
         }

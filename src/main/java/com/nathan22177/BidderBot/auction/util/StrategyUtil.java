@@ -29,7 +29,7 @@ public class StrategyUtil {
      * @param history of all bids
      * @return median
      * */
-    public static int allBidsMedian(List<Pair<Integer,Integer>> history) {
+    public static int allBidsMedian(List<Pair<Integer, Integer>> history) {
 
         if (history == null) {
             return 0;
@@ -45,9 +45,9 @@ public class StrategyUtil {
         }
 
         if (bids.length == 2) {
-        return (int) (bids[0] + bids[1]) / 2;
+            return (int) (bids[0] + bids[1]) / 2;
         }
-            return (int) (bids[bids.length / 2] + bids[(bids.length / 2) + 1]) / 2;
+        return (int) (bids[bids.length / 2] + bids[(bids.length / 2) + 1]) / 2;
 
     }
 
@@ -100,7 +100,9 @@ public class StrategyUtil {
      * mean price of two QUs for last {@param n} bids.
      * */
     public static boolean bidsOverMeanPriceForNRounds(BidderImpl bidder, int n) {
-        if (bidder.getBiddingHistory().size() < n || n <= 1) {
+        if (bidder.getBiddingHistory() == null
+                || bidder.getBiddingHistory().size() < n
+                || n <= 1) {
             return false;
         }
         return CalcUtil.firstSmallerThanAllComparables(getMeanPriceForOneUnit(bidder) * 2,
@@ -144,6 +146,10 @@ public class StrategyUtil {
         return bidder.getBiddingHistory() == null
                 ? bidder.getInitialQuantity() / 2
                 : (bidder.getInitialQuantity() / 2) - bidder.getBiddingHistory().size();
+    }
+
+    public static int getRoundsToWin(BidderImpl bidder) {
+        return (bidder.getInitialQuantity() / 4) + 1;
     }
 
     /***
