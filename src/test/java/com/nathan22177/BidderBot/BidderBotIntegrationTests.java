@@ -18,8 +18,6 @@ import java.util.List;
 public class BidderBotIntegrationTests {
     private List<Integer> cashPoll = Arrays.asList(1000, 5000, 10_000, 50_000, 100_000, 500_000, 1000_000, 10_000_000);
     private List<Integer> quantityPoll = Arrays.asList(2, 4, 8, 16, 20, 30, 40, 50, 80, 100, 200, 400, 800, 1000);
-    private int winningThreshold = 112; // out of 112 ≈ 90.2%
-
 
     @Test
     public void NathanVsWinnerIncrementBidder() {
@@ -42,7 +40,7 @@ public class BidderBotIntegrationTests {
     @Test
     public void NathanVsSafeBidder() {
         // Wins or gets a draw 112 games out of 112 every test (≈ 100%  win or draw rate)
-        twoStrategiesCompetition(BiddingStrategy.NATHAN, BiddingStrategy.FAKE_SAFE, winningThreshold);
+        twoStrategiesCompetition(BiddingStrategy.NATHAN, BiddingStrategy.FAKE_SAFE, 112);
     }
 
     @Test
@@ -53,7 +51,7 @@ public class BidderBotIntegrationTests {
 
     @Test
     public void NathanVsLehaSVV2009() {
-        // Wins or gets a draw 95 games every test, sometimes up to 110 times due to it's opponent randomised behaviour
+        // Wins or gets a draw in at least 95 games every test, sometimes up to 110 times due to it's opponent randomised behaviour
         // (≈ 84.8% - 98.2%  win or draw rate)
         twoStrategiesCompetition(BiddingStrategy.NATHAN, BiddingStrategy.FAKE_LEHASVV2009, 95);
     }
