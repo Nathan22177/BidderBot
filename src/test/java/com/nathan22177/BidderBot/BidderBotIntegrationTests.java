@@ -18,7 +18,7 @@ import java.util.List;
 public class BidderBotIntegrationTests {
     private List<Integer> cashPoll = Arrays.asList(1000, 5000, 10_000, 50_000, 100_000, 500_000, 1000_000, 10_000_000);
     private List<Integer> quantityPoll = Arrays.asList(2, 4, 8, 16, 20, 30, 40, 50, 80, 100, 200, 400, 800, 1000);
-    private int winThreshold = 101; // out of 112 ≈ 90.2%
+    private int winningThreshold = 101; // out of 112 ≈ 90.2%
 
     @Test
     public void NathanVsCopycat() {
@@ -63,6 +63,6 @@ public class BidderBotIntegrationTests {
                 }
             }
         }
-        Assert.assertTrue(winOrDrawCount >= winThreshold);
+        Assert.assertTrue(winOrDrawCount >= winningThreshold);
     }
 }
