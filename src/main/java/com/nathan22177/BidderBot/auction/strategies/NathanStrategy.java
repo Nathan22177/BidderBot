@@ -21,7 +21,7 @@ public class NathanStrategy {
         int medianBid = StrategyUtil.allBidsMedian(bidder) + initialQuantity;
         int defaultBid = !thereAreMoreRoundsThanMonetaryUnits
                 ? (bidder.getBalance() / (roundsLeft * 2) ^ 2) + (initialQuantity - roundsLeft)
-                : 2;
+                : 1;
         int price = bidder.getInitialBalance() / bidder.getInitialQuantity();
 
         /*
