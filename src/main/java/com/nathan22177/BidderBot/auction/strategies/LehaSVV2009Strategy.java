@@ -10,7 +10,6 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
  * */
 public class LehaSVV2009Strategy {
 
-
     public static int calculateBiddingAmount(BidderImpl bidder) {
         // Skip calculations if there is no cash or turns
         if (bidder.getBalance() == 0 || StrategyUtil.getRoundsLeft(bidder) == 0) {

@@ -17,7 +17,9 @@ My take at the technical task for Optimax GmbH.
 * [FairStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/FairStrategy.java) - always bids mean price of 2 QU's.
 * [RisingStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/RisingStrategy.java) - gradually raises bid so that would go with empty balance at the end.
 * [SafeStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/SafeStrategy.java) - waits for advantage then bids median plus 2.
-* [WinnerIncrementStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/WinnerIncrementStrategy.java) - waits for advantage then bids last winning bid plus one;
+* [WinnerIncrementStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/WinnerIncrementStrategy.java) - waits for advantage then bids last winning bid plus one.
+* [LehaSVV2009Strategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/LehaSVV2009Strategy.java) - strategy formulated and implemented by @lehaSVV2009.
+* [PyramidPlayerStrategy](src/main/java/com/nathan22177/BidderBot/auction/strategies/PyramidPlayerStrategy.java) - strategy formulated and implemented by @PyramidPlayer.
 
 ## Tests:
 * [BidderBotIntegrationTests](src/test/java/com/nathan22177/BidderBot/BidderBotIntegrationTests.java) - integration tests ensuring that we win a considerable amount of games against other algorithms.
