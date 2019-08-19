@@ -63,6 +63,13 @@ public class BidderBotIntegrationTests {
         twoStrategiesCompetition(BiddingStrategy.NATHAN, BiddingStrategy.FAKE_PYRAMID_PLAYER, 52);
     }
 
+    @Test
+    public void LehaSVV2009PyramidPlayer() {
+        // Wins or gets a draw in at least 92 games every test, sometimes up to 110 times due to it's opponent randomised behaviour
+        // (≈ 82.1% - 91.1%  win or draw rate)
+        twoStrategiesCompetition(BiddingStrategy.FAKE_LEHASVV2009, BiddingStrategy.FAKE_PYRAMID_PLAYER, 52);
+    }
+
     public void twoStrategiesCompetition(BiddingStrategy bidderStrategy, BiddingStrategy opponentStrategy, int winningThreshold) {
         int winOrDrawCount = 0;
         for (int cash : cashPoll) {
