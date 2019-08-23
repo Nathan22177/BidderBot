@@ -1,7 +1,8 @@
 package com.nathan22177.BidderBot;
 
 import com.nathan22177.BidderBot.auction.bidder.BidderImpl;
-import com.nathan22177.BidderBot.auction.enums.BiddingStrategy;
+import com.nathan22177.BidderBot.auction.strategies.FairStrategy;
+import com.nathan22177.BidderBot.auction.strategies.RisingStrategy;
 import com.nathan22177.BidderBot.auction.util.StrategyUtil;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,8 @@ public class StrategyUtilUnitTests {
     public void init() {
         startBalance = 10_000;
         startQuantity = 100;
-        bidder = new BidderImpl(startQuantity, startBalance, BiddingStrategy.FAKE_ALWAYS_RAISES);
-        opponent = new BidderImpl(startQuantity, startBalance, BiddingStrategy.FAKE_FAIR);
+        bidder = new BidderImpl(startQuantity, startBalance, new RisingStrategy());
+        opponent = new BidderImpl(startQuantity, startBalance, new FairStrategy());
         for (int i = 0; i < startQuantity / 2; i++) {
             int bidderBid = bidder.placeBid();
             int opponentBid = opponent.placeBid();

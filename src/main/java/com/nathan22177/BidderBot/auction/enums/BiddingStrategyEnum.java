@@ -1,6 +1,6 @@
 package com.nathan22177.BidderBot.auction.enums;
 
-public enum BiddingStrategy {
+public enum BiddingStrategyEnum {
     /**
      * My own strategy
      */

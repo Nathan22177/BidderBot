@@ -6,8 +6,10 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
 /***
  * Waits for an advantage then bids median plus 2.
  * */
-public class SafeStrategy {
-    public static int getBiddingAmount(BidderImpl bidder) {
+public class SafeStrategy implements BiddingStrategy {
+
+    @Override
+    public int getBiddingAmount(BidderImpl bidder) {
         if (StrategyUtil.bidderHasAdvantageOverItsOpponent(bidder)) {
             return StrategyUtil.allBidsMedian(bidder) + 1;
         }

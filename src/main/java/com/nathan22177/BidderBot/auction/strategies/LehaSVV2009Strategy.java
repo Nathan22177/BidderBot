@@ -8,9 +8,17 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
  * lehaSVV2009s AwesomeBidder strategy refactored and appropriated.
  * Comments remain true to the source.
  * */
-public class LehaSVV2009Strategy {
+public class LehaSVV2009Strategy implements BiddingStrategy {
 
-    public static int calculateBiddingAmount(BidderImpl bidder) {
+    @Override
+    public int getBiddingAmount(BidderImpl bidder) {
+        int bid = calculateBiddingAmount(bidder);
+        return bid >= 0 && bid <= bidder.getBalance()
+                ? bid
+                : 0;
+    }
+
+    private static int calculateBiddingAmount(BidderImpl bidder) {
         // Skip calculations if there is no cash or turns
         if (bidder.getBalance() == 0 || StrategyUtil.getRoundsLeft(bidder) == 0) {
             return 0;
@@ -64,12 +72,5 @@ public class LehaSVV2009Strategy {
         return nextValue > bidder.getBalance()
                 ? bidder.getRandom().nextInt(bidder.getBalance())
                 : nextValue;
-    }
-
-    public static int getBiddingAmount(BidderImpl bidder) {
-        int bid = calculateBiddingAmount(bidder);
-        return bid >= 0 && bid <= bidder.getBalance()
-                ? bid
-                : 0;
     }
 }

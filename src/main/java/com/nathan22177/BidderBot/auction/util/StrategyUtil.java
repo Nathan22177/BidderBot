@@ -105,8 +105,7 @@ public class StrategyUtil {
                 || n <= 1) {
             return false;
         }
-        return CalcUtil.firstSmallerThanAllComparables(getMeanPriceForOneUnit(bidder) * 2,
-                getLastNBids(n, bidder));
+        return getMeanPriceForOneUnit(bidder) * 2 < Collections.min(getLastNBids(n, bidder));
     }
 
     /***

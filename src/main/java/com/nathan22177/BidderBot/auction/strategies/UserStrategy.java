@@ -8,9 +8,10 @@ import java.io.InputStreamReader;
 /***
  * Enables to play against user.
  * */
-public class UserStrategy {
+public class UserStrategy implements BiddingStrategy {
 
-    public static int getBiddingAmount(BidderImpl bidder) {
+    @Override
+    public int getBiddingAmount(BidderImpl bidder) {
         System.out.println("Current balance: " + bidder.getBalance());
         System.out.println("Acquired QU: " + bidder.getAcquiredAmount());
         System.out.println("Please enter the amount of MU you would liker to place" + "\n");

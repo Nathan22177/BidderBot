@@ -6,9 +6,10 @@ import com.nathan22177.BidderBot.auction.util.StrategyUtil;
 /***
  * My own strategy.
  * */
-public class NathanStrategy {
+public class NathanStrategy implements BiddingStrategy{
 
-    public static int getBiddingAmount(BidderImpl bidder) {
+    @Override
+    public int getBiddingAmount(BidderImpl bidder) {
 
         /*
           We will always safely bet 2 until opponent runs out of cash.

@@ -1,8 +1,7 @@
 package com.nathan22177.BidderBot.auction.bidder;
 
-import com.nathan22177.BidderBot.auction.StrategyController;
-import com.nathan22177.BidderBot.auction.enums.BiddingStrategy;
-import com.nathan22177.BidderBot.auction.util.MatchUtil;
+import com.nathan22177.BidderBot.auction.strategies.BiddingStrategy;
+import com.nathan22177.BidderBot.auction.strategies.NathanStrategy;
 import javafx.util.Pair;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,22 +55,16 @@ public class BidderImpl implements Bidder {
         Assert.isTrue(quantity % 2 == 0 && quantity > 0, "Quantity must be a positive and even number.");
         Assert.isTrue(cash > 0, "Cash must be positive number.");
         this.init(quantity, cash);
-        this.biddingStrategy = BiddingStrategy.NATHAN;
+        this.biddingStrategy = new NathanStrategy();
     }
 
 
     public BidderImpl (int quantity, int cash, BiddingStrategy strategy) {
         Assert.isTrue(quantity % 2 == 0 && quantity > 0, "Quantity must be a positive and even number.");
-        Assert.isTrue(MatchUtil.isOneOf(strategy, BiddingStrategy.values()), "Must use one of the defined strategies.");
         Assert.isTrue(cash > 0, "Cash must be positive number.");
         this.init(quantity, cash);
         this.biddingStrategy = strategy;
     }
-
-    /*
-    * Closing default constructor to ensure no one will call it.
-    * */
-    private BidderImpl() {}
 
     @Override
     public void init(int quantity, int cash) {
@@ -83,9 +76,9 @@ public class BidderImpl implements Bidder {
 
     @Override
     public int placeBid() {
-        int bid = StrategyController.getBiddingAmountForStrategy(this);
+        int bid = this.biddingStrategy.getBiddingAmount(this);
         Assert.isTrue(bid >= 0, "Bid should be positive number");
-        Assert.isTrue(bid >= 0, "Bid should be positive number");
+        Assert.isTrue(bid <= this.balance, "Bid should not be larger than amount of MU on the balance");
 
         this.balance -= bid;
         return bid;
@@ -107,8 +100,6 @@ public class BidderImpl implements Bidder {
             this.acquiredAmount += 2;
         } else if (own == other) {
             this.acquiredAmount++;
-        } else  if (own < other){
-            // do nothing because we have lost
         }
     }
 }
