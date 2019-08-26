@@ -29,8 +29,8 @@ public class BidderBotIntegrationTests {
 
     @Test
     public void NathanVsWinnerIncrementBidder() {
-        // Wins or gets a draw 101 games out of 112 every test (≈ 90.2% win or draw rate)
-        twoStrategiesCompetition(new NathanStrategy(), new WinnerIncrementStrategy(), 101);
+        // Wins or gets a draw 96 games out of 112 every test (≈ 85.7% win or draw rate)
+        twoStrategiesCompetition(new NathanStrategy(), new WinnerIncrementStrategy(), 96);
     }
 
     @Test
@@ -41,8 +41,8 @@ public class BidderBotIntegrationTests {
 
     @Test
     public void NathanVsCopycat() {
-        // Wins or gets a draw 101 games out of 112 every test (≈ 90.2%  win or draw rate)
-        twoStrategiesCompetition(new NathanStrategy(), new CopycatStrategy(), 101);
+        // Wins or gets a draw 99 games out of 112 every test (≈ 88.4%  win or draw rate)
+        twoStrategiesCompetition(new NathanStrategy(), new CopycatStrategy(), 99);
     }
 
     @Test
