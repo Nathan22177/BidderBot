@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 /***
  * Enables to play against user.
  * */
-public class UserStrategy implements BiddingStrategy {
+public class ConsolePlayerStrategy implements BiddingStrategy {
 
     @Override
     public int getBiddingAmount(BidderImpl bidder) {
